@@ -1,0 +1,63 @@
+[
+  {
+    "name": "weather_tool",
+    "description": "查询指定城市的天气信息。如果不指定城市，会自动获取当前位置的天气。",
+    "class_path": "tools.weather_tool.WeatherTool",
+    "enabled": true,
+    "config": {
+      "api_key": "YOUR_AMAP_API_KEY",
+      "timeout": 10,
+      "base_url": "https://restapi.amap.com/v3"
+    }
+  },
+  {
+    "name": "calendar_tool",
+    "description": "日历相关操作。可以查看今天的日程、添加事件或查看未来几天的安排。",
+    "class_path": "tools.calendar_tool.CalendarTool",
+    "enabled": true,
+    "config": {
+      "events_file": "calendar_events.json",
+      "default_reminder_minutes": 15
+    }
+  },
+  {
+    "name": "file_tool",
+    "description": "查找并打开文件或文件夹。可以搜索指定名称的文件或在Finder中打开特定文件夹。",
+    "class_path": "tools.file_tool.FileTool",
+    "enabled": true,
+    "config": {
+      "search_depth": 3,
+      "supported_extensions": [".txt", ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx"]
+    }
+  },
+  {
+    "name": "music_tool",
+    "description": "控制音乐播放。可以播放、暂停、下一首等，也支持搜索和播放特定歌曲。",
+    "class_path": "tools.music_tool.MusicTool",
+    "enabled": true,
+    "config": {
+      "default_volume": 80,
+      "supported_formats": ["mp3", "wav", "flac", "aac"]
+    }
+  },
+  {
+    "name": "system_tool",
+    "description": "系统控制操作，如锁屏、关机、打开应用等。",
+    "class_path": "tools.system_tool.SystemTool",
+    "enabled": true,
+    "config": {
+      "safe_mode": true,
+      "allowed_applications": ["Safari", "Mail", "Music", "Calendar", "Terminal"]
+    }
+  },
+  {
+    "name": "calculator_tool",
+    "description": "执行数学计算。支持加减乘除、指数、开方等运算。",
+    "class_path": "tools.calculator_tool.CalculatorTool",
+    "enabled": true,
+    "config": {
+      "precision": 2,
+      "angle_unit": "degrees"
+    }
+  }
+]
