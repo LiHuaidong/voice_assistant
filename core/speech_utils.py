@@ -1,6 +1,5 @@
 import whisper
 import sounddevice as sd
-import numpy as np
 import tempfile
 import scipy.io.wavfile
 

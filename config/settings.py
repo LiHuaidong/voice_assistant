@@ -16,9 +16,6 @@ class Settings:
     WHISPER_MODEL = "base"
     LLM_MODEL = "deepseek-r1:14b"
 
-    # API密钥
-    AMAP_API_KEY = os.getenv("AMAP_API_KEY", "YOUR_AMAP_API_KEY")
-
     # 服务地址
     MCP_WEATHER_URL = "http://localhost:5000/mcp/tools/weather_tool/execute"
     OLLAMA_URL = "http://localhost:11434/api/generate"
@@ -74,5 +71,10 @@ class Settings:
     # LangChain 详细日志配置
     LANGCHAIN_VERBOSE = os.getenv("LANGCHAIN_VERBOSE", "false").lower() == "true"
 
+    # 高德地图配置
+    AMAP_API_KEY = os.getenv("AMAP_API_KEY")
+    IP_LOCATION_API = os.getenv("IP_LOCATION_API", 'https://restapi.amap.com/v3/ip')
+    WEATHER_INFO_API = os.getenv("WEATHER_INFO_API", 'https://restapi.amap.com/v3/weather/weatherInfo')
 
 settings = Settings()
+print(settings.WEBSOCKET_HOST)

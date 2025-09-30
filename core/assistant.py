@@ -63,7 +63,7 @@ class VoiceAssistant:
         if settings.LANGCHAIN_TRACING_V2:
             os.environ["LANGCHAIN_TRACING_V2"] = "true"
             os.environ["LANGCHAIN_PROJECT"] = settings.LANGCHAIN_PROJECT
-            os.environ["LANGCHAIN_API_KEY"] = settings.LANGCHAIN_API_KEY or ""
+            os.environ["LANGCHAIN_API_KEY"] = settings.LANGCHAIN_API_KEY
             os.environ["LANGCHAIN_ENDPOINT"] = settings.LANGCHAIN_ENDPOINT
 
     def _create_memory(self):
@@ -189,7 +189,7 @@ class VoiceAssistant:
 
         # 简单的意图分类
         intents = {
-            "weather": any(keyword in text for keyword in ["天气", "气温", "温度", "下雨", "下雪"]),
+            "weather": any(keyword in text for keyword in ["天气", "气温", "温度", "下雨", "下雪", "天氣", "氣溫", "溫度"]),
             "calendar": any(keyword in text for keyword in ["日历", "日程", "会议", "安排", "事件"]),
             "files": any(keyword in text for keyword in ["文件", "查找", "打开", "文件夹", "文档"]),
             "music": any(keyword in text for keyword in ["音乐", "播放", "歌曲", "暂停", "下一首"]),

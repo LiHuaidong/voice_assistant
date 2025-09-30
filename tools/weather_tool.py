@@ -1,8 +1,6 @@
 from typing import Optional, Any
-
-import requests
 import re
-from config.settings import settings
+from external_services.amap_service import getLocation, getWeatherInfo
 from tools.base_tool import BaseAssistantTool
 
 class WeatherTool(BaseAssistantTool):
@@ -53,50 +51,23 @@ class WeatherTool(BaseAssistantTool):
 
     def get_current_city(self) -> Optional[str]:
         """获取当前城市"""
-        try:
-            # 获取公网IP
-            ip_response = requests.get("https://api.ipify.org", timeout=3)
-            ip = ip_response.text.strip()
-
-            # 调用高德地图API定位
-            params = {"key": settings.AMAP_API_KEY, "ip": ip}
-            response = requests.get("https://restapi.amap.com/v3/ip", params=params, timeout=5)
-            data = response.json()
-
-            if data.get("status") == "1":
-                return data.get("city", "")
-            return None
-        except:
-            return None
+        return getLocation()
 
     def get_weather_data(self, city: str) -> str:
         """获取天气数据"""
-        try:
-            # 调用MCP天气服务
-            response = requests.post(
-                settings.MCP_WEATHER_URL,
-                json={"arguments": {"city": city}},
-                timeout=settings.TOOL_CONFIG["weather"]["timeout"]
-            )
+        return getWeatherInfo(city)
 
-            if response.status_code == 200:
-                data = response.json()
-                return data.get("result", f"获取{city}天气信息失败")
-            else:
-                return "天气服务暂时不可用"
-        except Exception as e:
-            return f"获取天气信息失败: {str(e)}"
-
-config = {
-    "name": "weather_tool",
-    "description": "查询指定城市的天气信息。如果不指定城市，会自动获取当前位置的天气。",
-    "class_path": "tools.weather_tool.WeatherTool",
-    "enabled": True,
-    "config": {
-      "api_key": "YOUR_AMAP_API_KEY",
-      "timeout": 10,
-      "base_url": "https://restapi.amap.com/v3"
-    }
-  }
-weatherTool = WeatherTool("weather_tool", config)
-weatherTool.run("查询深圳的天气")
+if __name__ == '__main__':
+    config = {
+        "name": "weather_tool",
+        "description": "查询指定城市的天气信息。如果不指定城市，会自动获取当前位置的天气。",
+        "class_path": "tools.weather_tool.WeatherTool",
+        "enabled": True,
+        "config": {
+          "api_key": "YOUR_AMAP_API_KEY",
+          "timeout": 10,
+          "base_url": "https://restapi.amap.com/v3"
+        }
+      }
+    weatherTool = WeatherTool("weather_tool", config)
+    weatherTool.run("查询深圳的天气")
