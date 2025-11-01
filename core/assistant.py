@@ -12,7 +12,7 @@ from langchain_ollama import OllamaLLM
 from langgraph.graph import StateGraph, END
 
 from config.settings import settings
-from .langsmith_integration import langsmith_integration
+from langserve.langsmith_integration import langsmith_integration
 from .realtime_audio import AssistantAudioManager
 from .speech_utils import SpeechUtils
 from .tool_registry import tool_registry
@@ -299,7 +299,7 @@ class VoiceAssistant:
                 synthesis_complete=False
             )
 
-            # 使用LangSmith跟踪 - 修复后的方式
+            # 使用LangSmith跟踪
             with tracing_v2_enabled(
                     enabled=settings.LANGCHAIN_TRACING_V2,
                     tags=["voice-assistant"]
