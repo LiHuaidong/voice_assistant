@@ -10,11 +10,36 @@
 
 ## 调用关系
 
+以下是项目的调用架构图：
+
+```mermaid
+graph TD
+    A[main.py] -->|初始化| B[speech_recognition.py]
+    A -->|启动事件循环| C[nlp_processor.py]
+    A -->|调用| D[text_to_speech.py]
+    A -->|执行任务| E[task_executor.py]
+    A -->|监控与优化| F[LangSmith]
+    A -->|构建应用| G[LangChain]
+    A -->|可视化流程| H[LangGraph]
+    B -->|语音转文本| C
+    C -->|解析输入| D
+    C -->|生成响应| E
+    E -->|执行任务| D
+    F -->|监控性能| C
+    F -->|优化模型| E
+    G -->|语言模型集成| C
+    G -->|任务编排| E
+    H -->|可视化工作流| G
+```
+
 1. **主程序入口**：`main.py` 负责初始化语音助手并启动事件循环。
 2. **语音识别模块**：`speech_recognition.py` 调用第三方API或本地模型实现语音转文本。
 3. **NLP模块**：`nlp_processor.py` 解析用户输入并生成响应。
 4. **语音合成模块**：`text_to_speech.py` 将文本转换为语音输出。
 5. **任务执行模块**：`task_executor.py` 根据用户指令执行具体任务。
+6. **LangSmith**：用于监控和优化语言模型的性能。
+7. **LangChain**：用于构建基于语言模型的应用程序。
+8. **LangGraph**：用于可视化语言模型的工作流程。
 
 ## 文件目录结构
 
@@ -57,6 +82,14 @@ voice_assistant/
 18. **tempfile**：用于创建临时文件存储音频数据。
 19. **importlib**：用于动态加载工具模块。
 20. **json**：用于配置文件的读写和数据处理。
+21. **Ollama**：用于本地运行大模型（如 deepseek-R1:14b）。
+22. **sounddevice**：用于音频录制和播放。
+23. **scipy.io.wavfile**：用于音频文件的读写操作。
+24. **numpy**：用于音频数据的数值处理。
+25. **asyncio**：用于异步编程，支持实时音频处理。
+26. **tempfile**：用于创建临时文件存储音频数据。
+27. **importlib**：用于动态加载工具模块。
+28. **json**：用于配置文件的读写和数据处理。
 
 ## 大模型引用
 
@@ -98,5 +131,51 @@ voice_assistant/
 欢迎提交Pull Request或Issue，共同改进项目！
 
 ## 许可证
+
+## 最新目录结构
+
+以下是项目的文件目录结构：
+
+```
+.
+├── .env
+├── .gitignore
+├── client_example.html
+├── LangSmithIntegration.py
+├── main.py
+├── README.md
+├── requirements.txt
+├── serve.py
+├── websocket_server.py
+├── config/
+│   ├── __init__.py
+│   ├── settings.py
+│   └── tools_config.json
+├── core/
+│   ├── __init__.py
+│   ├── assistant.py
+│   ├── langsmith_integration.py
+│   ├── realtime_audio.py
+│   ├── speech_utils.py
+│   └── tool_registry.py
+├── external_services/
+│   ├── __init__.py
+│   └── amap_service.py
+├── langserve/
+│   ├── __init__.py
+│   └── assistant_chain.py
+├── schemes/
+│   ├── __init__.py
+│   └── models.py
+└── tools/
+    ├── __init__.py
+    ├── base_tool.py
+    ├── calculator_tool.py
+    ├── calendar_tool.py
+    ├── file_tool.py
+    ├── music_tool.py
+    ├── system_tool.py
+    └── weather_tool.py
+```
 
 本项目采用 MIT 许可证。
