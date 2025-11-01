@@ -49,7 +49,6 @@ graph TD
 ├── .env
 ├── .gitignore
 ├── client_example.html
-├── LangSmithIntegration.py
 ├── main.py
 ├── README.md
 ├── requirements.txt
