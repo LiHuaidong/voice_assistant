@@ -1,7 +1,7 @@
-import os
-from langsmith import Client
-from langchain.callbacks.tracers import LangChainTracer
 from langchain.callbacks.manager import CallbackManager
+from langchain.callbacks.tracers import LangChainTracer
+from langsmith import Client
+
 from config.settings import settings
 
 

@@ -1,0 +1,12 @@
+pyttsx3
+whisper
+sounddevice
+scipy
+numpy
+websockets
+asyncio
+langchain
+langsmith
+fastapi
+requests
+ollama

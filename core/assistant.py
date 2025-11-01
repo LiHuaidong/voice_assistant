@@ -1,21 +1,21 @@
-from langgraph.graph import StateGraph, END
-from typing import Dict, Any, TypedDict, Optional
-import pyttsx3
-import asyncio
 import os
-from langchain.agents import AgentExecutor, create_react_agent
-from langchain.tools import Tool as LangchainTool
-from langchain.memory import ConversationBufferWindowMemory
-from langchain_ollama import OllamaLLM
-from langchain.prompts import PromptTemplate
-from langchain_community.chat_message_histories import ChatMessageHistory
-from langchain.callbacks.manager import tracing_v2_enabled
+from typing import Dict, Any, TypedDict, Optional
 
+import pyttsx3
+from langchain.agents import AgentExecutor, create_react_agent
+from langchain.callbacks.manager import tracing_v2_enabled
+from langchain.memory import ConversationBufferWindowMemory
+from langchain.prompts import PromptTemplate
+from langchain.tools import Tool as LangchainTool
+from langchain_community.chat_message_histories import ChatMessageHistory
+from langchain_ollama import OllamaLLM
+from langgraph.graph import StateGraph, END
+
+from config.settings import settings
+from .langsmith_integration import langsmith_integration
+from .realtime_audio import AssistantAudioManager
 from .speech_utils import SpeechUtils
 from .tool_registry import tool_registry
-from .realtime_audio import AssistantAudioManager
-from .langsmith_integration import langsmith_integration
-from config.settings import settings
 
 
 # 定义状态数据结构
@@ -189,7 +189,8 @@ class VoiceAssistant:
 
         # 简单的意图分类
         intents = {
-            "weather": any(keyword in text for keyword in ["天气", "气温", "温度", "下雨", "下雪", "天氣", "氣溫", "溫度"]),
+            "weather": any(
+                keyword in text for keyword in ["天气", "气温", "温度", "下雨", "下雪", "天氣", "氣溫", "溫度"]),
             "calendar": any(keyword in text for keyword in ["日历", "日程", "会议", "安排", "事件"]),
             "files": any(keyword in text for keyword in ["文件", "查找", "打开", "文件夹", "文档"]),
             "music": any(keyword in text for keyword in ["音乐", "播放", "歌曲", "暂停", "下一首"]),
